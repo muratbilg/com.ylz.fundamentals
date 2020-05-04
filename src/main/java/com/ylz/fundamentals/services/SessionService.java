@@ -1,12 +1,14 @@
 package com.ylz.fundamentals.services;
 
 import com.ylz.fundamentals.entities.Session;
+import com.ylz.fundamentals.exceptions.ItemNotFoundException;
 import com.ylz.fundamentals.repositories.SessionRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SessionService {
@@ -18,7 +20,12 @@ public class SessionService {
     }
 
     public Session get(Long id) {
-        return sessionRepository.getOne(id);
+        Optional<Session> session = sessionRepository.findById(id);
+
+        if(session.isPresent())
+            return session.get();
+        else
+            throw new ItemNotFoundException("Session not found!");
     }
 
     public Session create(Session session) {

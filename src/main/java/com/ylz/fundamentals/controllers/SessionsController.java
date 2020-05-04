@@ -1,10 +1,13 @@
 package com.ylz.fundamentals.controllers;
 
 import com.ylz.fundamentals.entities.Session;
+import com.ylz.fundamentals.exceptions.ItemNotFoundException;
 import com.ylz.fundamentals.services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -21,8 +24,14 @@ public class SessionsController {
 
     @GetMapping
     @RequestMapping("{id}")
-    public Session get(@PathVariable Long id) {
-        return sessionService.get(id);
+    public ResponseEntity<Session> get(@PathVariable Long id) {
+        try {
+            Session session = sessionService.get(id);
+
+            return new ResponseEntity<Session>(session, HttpStatus.OK);
+        } catch(ItemNotFoundException exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Session not found!");
+        }
     }
 
     @PostMapping
