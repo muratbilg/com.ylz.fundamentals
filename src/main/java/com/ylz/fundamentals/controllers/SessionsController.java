@@ -1,8 +1,7 @@
 package com.ylz.fundamentals.controllers;
 
 import com.ylz.fundamentals.entities.Session;
-import com.ylz.fundamentals.repositories.SessionRepository;
-import org.springframework.beans.BeanUtils;
+import com.ylz.fundamentals.services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,29 +12,29 @@ import java.util.List;
 @RequestMapping("/api/v1/sessions")
 public class SessionsController {
     @Autowired
-    private SessionRepository sessionRepository;
+    private SessionService sessionService;
 
     @GetMapping
     public List<Session> list() {
-        return sessionRepository.findAll();
+        return sessionService.list();
     }
 
     @GetMapping
     @RequestMapping("{id}")
     public Session get(@PathVariable Long id) {
-        return sessionRepository.getOne(id);
+        return sessionService.get(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Session create(@RequestBody final Session session) {
-        return sessionRepository.saveAndFlush(session);
+        return sessionService.create(session);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
         // Also check for children before deleting
-        sessionRepository.deleteById(id);
+        sessionService.delete(id);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
@@ -43,8 +42,7 @@ public class SessionsController {
         // this is a PUT, we expect all attributes to be passed in.
         // a PATCH would only need what we update
         // TODO: add validation..
-        Session existingSession = sessionRepository.getOne(id);
-        BeanUtils.copyProperties(session, existingSession, "session_id");
-        return sessionRepository.saveAndFlush(existingSession);
+
+        return sessionService.update(id, session);
     }
 }

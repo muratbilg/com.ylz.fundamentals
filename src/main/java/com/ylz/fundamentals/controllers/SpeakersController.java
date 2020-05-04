@@ -1,7 +1,7 @@
 package com.ylz.fundamentals.controllers;
 
 import com.ylz.fundamentals.entities.Speaker;
-import com.ylz.fundamentals.repositories.SpeakerRepository;
+import com.ylz.fundamentals.services.SpeakerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,21 +14,16 @@ import java.util.List;
 @RequestMapping("/api/v1/speakers")
 public class SpeakersController {
     @Autowired
-    private SpeakerRepository speakerRepository;
+    private SpeakerService speakerService;
 
     @GetMapping
     public List<Speaker> list() {
-        return speakerRepository.findAll();
+        return speakerService.list();
     }
 
     @GetMapping
     @RequestMapping("{id}")
     public Speaker get(@PathVariable Long id) {
-        return speakerRepository.getOne(id);
+        return speakerService.get(id);
     }
-
-//    @PostMapping
-//    public create(@RequestBody final Speaker speaker) {
-//        return speakerRepository.saveAndFlush(speaker);
-//    }
 }
