@@ -1,0 +1,4 @@
+# some variables are picked from here
+
+server:
+  port: 6000
