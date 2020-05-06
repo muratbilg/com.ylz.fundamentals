@@ -3,6 +3,7 @@ package com.ylz.fundamentals.controllers;
 import com.ylz.fundamentals.entities.Session;
 import com.ylz.fundamentals.exceptions.ItemNotFoundException;
 import com.ylz.fundamentals.services.SessionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +14,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/sessions")
+@Slf4j
 public class SessionsController {
     @Autowired
     private SessionService sessionService;
 
     @GetMapping
     public List<Session> list() {
+        log.info("list method");
+
         return sessionService.list();
     }
 
