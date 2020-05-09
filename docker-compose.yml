@@ -1,0 +1,8 @@
+version: '3'
+services:
+  postgres
+    image: '51e7e33e84cf'
+#  com.ylz.fundamentals
+#    build: .
+#    ports:
+#      - '3000:6000'

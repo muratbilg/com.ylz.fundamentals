@@ -6,6 +6,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
+import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
@@ -16,7 +18,7 @@ import org.springframework.core.env.Environment;
  *   @ComponentScan: Tells Spring Boot to scan current package and subpackages
  */
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {JacksonAutoConfiguration.class, JmxAutoConfiguration.class})
 @Log4j2
 public class FundamentalsApplication {
 	//private static final Logger log = LoggerFactory.getLogger(FundamentalsApplication.class);

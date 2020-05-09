@@ -10,6 +10,9 @@ import java.util.Map;
 
 @RestController
 public class HomeController {
+    @Value("${app.name}")
+    private String appName;
+
     @Value("${app.version}")
     private String appVersion;
 
@@ -20,9 +23,9 @@ public class HomeController {
     @RequestMapping("/")
     public Map getStatus() {
         Map map = new HashMap<String, String>();
+        map.put("app-name", appName);
         map.put("app-version", appVersion);
         map.put("app-env", appEnvironment);
-        map.put("app-name", "com.pluralsight.conferencedemo");
 
         return map;
     }
