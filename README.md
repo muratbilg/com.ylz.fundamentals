@@ -29,11 +29,12 @@ Connection Info:
 
 Note: This stores the data inside the container - when you delete the container, the data is deleted as well.
 
-Connect to PSQL prompt from docker:
-   docker exec -it postgresInstance psql -U postgres
 
 ## Application Database Setup
 
+    # Connect to PSQL prompt from docker:
+    docker exec -it postgresInstance psql -U postgres
+    
     # Create the Database:
     psql> create database com.ylz.fundamentals;
 
